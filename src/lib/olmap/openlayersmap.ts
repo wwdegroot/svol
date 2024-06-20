@@ -11,12 +11,3 @@ export function createMapStore(options: MapOptions): Writable<Map> {
     return writable(new Map(options))
 }
 
-/**
- * 
- * @param el 
- * @param mapHeight 
- */
-export function autoResizeMapDiv(elHeight: number, mapHeight: Writable<number>) {
-    console.log(elHeight)
-    mapHeight.set(elHeight)
-}

@@ -1,2 +1,2 @@
 // Openlayers Map
-export { default as OpenlayersMap } from "./olmap/OpenlayersMap.svelte";
+export { OpenlayersMap, ResizableOpenlayersMap, createMapStore } from "./olmap/index.js";
