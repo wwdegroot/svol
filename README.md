@@ -1,2 +1,8 @@
-# svol
-sveltekit and openlayers
+# Svol
+Sveltekit and openlayers component library.
+
+## Components
+
+- OpenlayersMap.svelte
+
+
