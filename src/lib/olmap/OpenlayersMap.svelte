@@ -19,6 +19,7 @@
 
 	function handleMapSize() {
 		let totalHeight = 0;
+
 		if (siblings) {
 			for (let i = 0; i < siblings.length; i++) {
 				let tag = siblings[i] as HTMLElement;
