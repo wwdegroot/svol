@@ -74,22 +74,24 @@
 	});
 </script>
 
-<div class="h-full w-full max-w-screen-md p-2">
-	<div class="grid grid-cols-2 gap-2 h-full">
-		{#if pageMounted}
-			{#each mapStores as mapStore, i}
-				<div class="h-full col-span-1 min-h-80">
-					<div
-						class="flex justify-center items-center content-center h-[10%] bg-slate-700 rounded-t-md"
-					>
-						<span class="font-bold text-white">Map {i + 1}</span>
+<div class="h-full w-full p-2">
+	<div class="flex items-center justify-center">
+		<div class="grid grid-cols-2 gap-2 h-full">
+			{#if pageMounted}
+				{#each mapStores as mapStore, i}
+					<div class="h-full col-span-1 min-h-80 min-w-64">
+						<div
+							class="flex justify-center items-center content-center h-[10%] bg-slate-700 rounded-t-md"
+						>
+							<span class="font-bold text-white">Map {i + 1}</span>
+						</div>
+
+						<OpenlayersMap {mapStore} class="h-[80%]" autoResize={false}></OpenlayersMap>
+
+						<div class="w-full h-[10%] bg-slate-700 rounded-b-md"></div>
 					</div>
-
-					<OpenlayersMap {mapStore} class="h-[80%]" autoResize={false}></OpenlayersMap>
-
-					<div class="w-full h-[10%] bg-slate-700 rounded-b-md"></div>
-				</div>
-			{/each}
-		{/if}
+				{/each}
+			{/if}
+		</div>
 	</div>
 </div>
