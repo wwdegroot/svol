@@ -9,8 +9,6 @@
 	let mapStore: Writable<Map>;
 
 	let pageMounted = false;
-	let showDataPane = false;
-
 	onMount(() => {
 		let view = new View({
 			center: [0, 0],
@@ -36,7 +34,8 @@
 	{#if pageMounted}
 		<OpenlayersMap {mapStore} class="w-full h-dvh" autoResize={true}></OpenlayersMap>
 	{/if}
-	{#if showDataPane}
-		<div class="w-full h-16 bg-slate-700"></div>
-	{/if}
+
+	<div class="flex justify-center items-center content-center w-full h-16 bg-slate-700">
+		<span class="font-bold text-white">Footer</span>
+	</div>
 </div>
