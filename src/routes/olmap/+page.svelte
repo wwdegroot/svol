@@ -9,8 +9,6 @@
 	let mapStore: Writable<Map>;
 
 	let pageMounted = false;
-	let showDataPane = false;
-
 	onMount(() => {
 		let view = new View({
 			center: [0, 0],
