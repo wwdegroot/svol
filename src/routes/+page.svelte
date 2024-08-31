@@ -12,5 +12,11 @@
 		>
 			ResizableOpenlayersMap
 		</a>
+		<a
+			class="flex items-center justify-center rounded h-16 w-48 bg-slate-400"
+			href="/olmap/multiple"
+		>
+			Multiple OpenlayersMap
+		</a>
 	</div>
 </div>
