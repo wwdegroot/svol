@@ -1,8 +1,11 @@
 <script lang="ts">
-	import * as Popover from '$lib/components/ui/popover';
-	import * as Select from '$lib/components/ui/select';
-	import { Button } from '$lib/components/ui/button';
-	import { Scan, SquarePen, ClipboardCopy } from 'lucide-svelte';
+	import * as Popover from '$lib/components/ui/popover/index.js';
+	import * as Select from '$lib/components/ui/select/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import Scan from 'lucide-svelte/icons/scan';
+	import SquarePen from 'lucide-svelte/icons/square-pen';
+	import ClipboardCopy from 'lucide-svelte/icons/clipboard-copy';
+	import SquareX from 'lucide-svelte/icons/square-x';
 	import { getContext, onMount } from 'svelte';
 	import type { Writable } from 'svelte/store';
 	import Map from 'ol/Map.js';
@@ -10,7 +13,11 @@
 	import type { Extent } from 'ol/extent.js';
 	import Slider from '$lib/components/ui/slider/slider.svelte';
 
-	export let size: number = 32;
+	interface Props {
+		size?: number;
+	}
+
+	let { size = 32 }: Props = $props();
 
 	let map: Writable<Map> = getContext('olmap');
 	const mapProjection = $map.getView().getProjection();
@@ -18,11 +25,11 @@
 		{ value: mapProjection.getCode(), label: mapProjection.getCode() },
 		{ value: 'EPSG:28992', label: 'EPSG:28992' }
 	];
-	let selected = { value: mapProjection.getCode(), label: mapProjection.getCode() };
-	let decimalPlaces: number = 2;
-	$: console.log(selected);
+	let selected = $state({ value: mapProjection.getCode(), label: mapProjection.getCode() });
+	let decimalPlaces: number = $state(2);
 
-	$: bbox = '';
+	let bbox = $state('');
+
 	onMount(() => {
 		getBboxMapExtent();
 	});
@@ -35,20 +42,21 @@
 	}
 </script>
 
-<Popover.Root closeOnOutsideClick={false}>
+<Popover.Root>
 	<Popover.Trigger>
-		<button
-			class="rounded-md bg-white dark:bg-slate-800 shadow"
-			on:click={() => console.log('bbox export click')}
-		>
+		<div class="rounded-md bg-white dark:bg-slate-800 shadow">
 			<Scan {size} fill={'fill-black dark:fill-white'}></Scan>
-		</button>
+		</div>
 	</Popover.Trigger>
-	<Popover.Content>
+	<Popover.Content interactOutsideBehavior="ignore">
 		<div class="grid grid-cols-1 gap-2">
 			<div>
-				<p class="mb-2 font-bold">Projection:</p>
-				<Select.Root portal={null} bind:selected>
+				<div class="flex flex-row justify-between">
+					<div class="mb-2 font-bold">Projection:</div>
+					<div><Popover.Close><SquareX /></Popover.Close></div>
+				</div>
+
+				<Select.Root bind:value={selected}>
 					<Select.Trigger class="w-[180px]">
 						<Select.Value placeholder="Select a projection" />
 					</Select.Trigger>
@@ -82,11 +90,11 @@
 				/>
 			</div>
 			<div class="grid grid-cols-2 gap-2">
-				<Button variant="outline" on:click={() => console.log('draw bbox')}>
+				<Button variant="outline" onclick={() => console.log('draw bbox')}>
 					<SquarePen class="mr-2 h-6 w-6" />
 					Draw BBOX
 				</Button>
-				<Button variant="outline" on:click={() => getBboxMapExtent()}>View BBOX</Button>
+				<Button variant="outline" onclick={() => getBboxMapExtent()}>View BBOX</Button>
 			</div>
 			<div class="grid grid-cols-1">
 				<div class="mb-2">
