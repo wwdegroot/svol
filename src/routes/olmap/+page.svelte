@@ -6,9 +6,9 @@
 	import TileLayer from 'ol/layer/Tile.js';
 	import OSM from 'ol/source/OSM.js';
 
-	let mapStore: Writable<Map>;
+	let mapStore: Writable<Map> = $state();
 
-	let pageMounted = false;
+	let pageMounted = $state(false);
 	onMount(() => {
 		let view = new View({
 			center: [0, 0],

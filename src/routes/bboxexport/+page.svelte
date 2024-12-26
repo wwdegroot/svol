@@ -9,8 +9,8 @@
 	import BboxExport from '$lib/bboxexport/BboxExport.svelte';
 	import WidgetGroup from '$lib/mapui/group/WidgetGroup.svelte';
 
-	let mapStore: Writable<Map>;
-	let pageMounted = false;
+	let mapStore: Writable<Map> = $state();
+	let pageMounted = $state(false);
 
 	onMount(() => {
 		let view = new View({
@@ -42,18 +42,24 @@
 				headerPane={true}
 				dataPane={true}
 			>
-				<div
-					slot="header"
-					class="h-full bg-slate-700 flex items-center justify-center shadow border-collapse"
-				>
-					<span class="font-semibold text-white">BBOX export</span>
-				</div>
-				<WidgetGroup position="top-right" slot="map">
-					<BboxExport></BboxExport>
-				</WidgetGroup>
-				<div slot="data" class="flex h-full items-center justify-center p-6">
-					<span class="font-semibold">Show Feature Data Here</span>
-				</div>
+				{#snippet header()}
+								<div
+						
+						class="h-full bg-slate-700 flex items-center justify-center shadow border-collapse"
+					>
+						<span class="font-semibold text-white">BBOX export</span>
+					</div>
+							{/snippet}
+				{#snippet map()}
+								<WidgetGroup position="top-right" >
+						<BboxExport></BboxExport>
+					</WidgetGroup>
+							{/snippet}
+				{#snippet data()}
+								<div  class="flex h-full items-center justify-center p-6">
+						<span class="font-semibold">Show Feature Data Here</span>
+					</div>
+							{/snippet}
 			</ResizableOpenlayersMap>
 		{/if}
 	</div>

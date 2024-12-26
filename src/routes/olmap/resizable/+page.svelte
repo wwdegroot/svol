@@ -6,8 +6,8 @@
 	import TileLayer from 'ol/layer/Tile.js';
 	import OSM from 'ol/source/OSM.js';
 
-	let mapStore: Writable<Map>;
-	let pageMounted = false;
+	let mapStore: Writable<Map> = $state();
+	let pageMounted = $state(false);
 
 	onMount(() => {
 		let view = new View({
@@ -31,15 +31,19 @@
 	<div class="h-[100%]">
 		{#if pageMounted}
 			<ResizableOpenlayersMap {mapStore} resizable={true} headerPane={true} dataPane={true}>
-				<div
-					slot="header"
-					class="h-full bg-slate-700 flex items-center justify-center shadow border-collapse"
-				>
-					<span class="font-semibold text-white">Header</span>
-				</div>
-				<div slot="data" class="flex h-full items-center justify-center p-6">
-					<span class="font-semibold">Show Feature Data Here</span>
-				</div>
+				{#snippet header()}
+								<div
+						
+						class="h-full bg-slate-700 flex items-center justify-center shadow border-collapse"
+					>
+						<span class="font-semibold text-white">Header</span>
+					</div>
+							{/snippet}
+				{#snippet data()}
+								<div  class="flex h-full items-center justify-center p-6">
+						<span class="font-semibold">Show Feature Data Here</span>
+					</div>
+							{/snippet}
 			</ResizableOpenlayersMap>
 		{/if}
 	</div>
