@@ -43,23 +43,20 @@
 				dataPane={true}
 			>
 				{#snippet header()}
-								<div
-						
-						class="h-full bg-slate-700 flex items-center justify-center shadow border-collapse"
-					>
+					<div class="h-full bg-slate-700 flex items-center justify-center shadow border-collapse">
 						<span class="font-semibold text-white">BBOX export</span>
 					</div>
-							{/snippet}
+				{/snippet}
 				{#snippet map()}
-								<WidgetGroup position="top-right" >
-						<BboxExport></BboxExport>
+					<WidgetGroup position="top-right">
+						<BboxExport projections={[{ value: 'EPSG:28992', label: 'EPSG:28992' }]}></BboxExport>
 					</WidgetGroup>
-							{/snippet}
+				{/snippet}
 				{#snippet data()}
-								<div  class="flex h-full items-center justify-center p-6">
+					<div class="flex h-full items-center justify-center p-6">
 						<span class="font-semibold">Show Feature Data Here</span>
 					</div>
-							{/snippet}
+				{/snippet}
 			</ResizableOpenlayersMap>
 		{/if}
 	</div>
