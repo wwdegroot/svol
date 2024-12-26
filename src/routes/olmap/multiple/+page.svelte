@@ -11,9 +11,9 @@
 	let mapStore2: Writable<Map>;
 	let mapStore3: Writable<Map>;
 	let mapStore4: Writable<Map>;
-	let mapStores: Writable<Map>[];
+	let mapStores: Writable<Map>[] = $state();
 
-	let pageMounted = false;
+	let pageMounted = $state(false);
 
 	onMount(() => {
 		useGeographic();

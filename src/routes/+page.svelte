@@ -18,5 +18,8 @@
 		>
 			Multiple OpenlayersMap
 		</a>
+		<a class="flex items-center justify-center rounded h-16 w-48 bg-slate-400" href="/bboxexport/">
+			Bbox export widget
+		</a>
 	</div>
 </div>

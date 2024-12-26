@@ -1,17 +1,26 @@
 <script lang="ts">
 	import { Map } from 'ol';
-	import { setContext, onMount, onDestroy } from 'svelte';
+	import { setContext, onMount, onDestroy, type Snippet } from 'svelte';
 	import { writable, type Writable } from 'svelte/store';
 	import 'ol/ol.css';
 
-	export let mapStore: Writable<Map>;
-	let classNames: string = 'w-full h-full';
-	export { classNames as class };
-	export let autoResize = true;
+	interface Props {
+		mapStore: Writable<Map>;
+		class?: string;
+		autoResize?: boolean;
+		children?: Snippet;
+	}
+
+	let {
+		mapStore,
+		class: classNames = 'w-full h-full',
+		autoResize = true,
+		children
+	}: Props = $props();
 
 	setContext('olmap', mapStore);
 
-	let mapDiv: HTMLDivElement;
+	let mapDiv: HTMLDivElement | undefined = $state();
 	let parent: HTMLElement;
 	let siblings: HTMLCollection;
 	let mapID: string = `map-${crypto.randomUUID().split(`-`)[0]}`;
@@ -23,7 +32,7 @@
 		if (siblings) {
 			for (let i = 0; i < siblings.length; i++) {
 				let tag = siblings[i] as HTMLElement;
-				if (tag.id != mapDiv.id) {
+				if (tag.id != mapDiv?.id) {
 					let style = getComputedStyle(tag);
 					totalHeight +=
 						tag.offsetHeight + parseInt(style.marginTop) + parseInt(style.marginBottom);
@@ -34,7 +43,7 @@
 	}
 
 	onMount(() => {
-		parent = mapDiv.parentElement ?? document.getElementsByTagName('body')[0];
+		parent = mapDiv?.parentElement ?? document.getElementsByTagName('body')[0];
 		siblings = parent.children;
 		// TODO: do something with a MutationObserver on the parent element: https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/MutationObserver#examples
 		// create a store of child elements and update / remove when changed to recalculate map height
@@ -49,14 +58,14 @@
 	});
 </script>
 
-<svelte:window on:resize={() => handleMapSize()} />
+<svelte:window onresize={() => handleMapSize()} />
 
 {#if autoResize}
 	<div bind:this={mapDiv} id={mapID} class={classNames} style="height: {$mapHeight}px">
-		<slot />
+		{@render children?.()}
 	</div>
 {:else}
 	<div bind:this={mapDiv} class={classNames}>
-		<slot />
+		{@render children?.()}
 	</div>
 {/if}
