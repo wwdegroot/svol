@@ -1,26 +1,43 @@
 <script lang="ts">
 	import { Map } from 'ol';
-	import { setContext, onMount, onDestroy } from 'svelte';
+	import { setContext, onMount, onDestroy, type Snippet } from 'svelte';
 	import { writable, type Writable } from 'svelte/store';
 	import * as Resizable from '$lib/components/ui/resizable';
 
-	export let mapStore: Writable<Map>;
-	export let title: string = '';
-	export let resizable: boolean = false;
-	export let mapSize: number = 75;
-	export let dataPane: boolean = false;
-	export let dataSize: number = 20;
-	export let headerPane: boolean = false;
-	export let headerSize: number = 5;
+	interface Props {
+		mapStore: Writable<Map>;
+		title?: string;
+		resizable?: boolean;
+		mapSize?: number;
+		dataPane?: boolean;
+		dataSize?: number;
+		headerPane?: boolean;
+		headerSize?: number;
+		header?: Snippet;
+		map?: Snippet;
+		data?: Snippet;
+	}
+
+	let {
+		mapStore,
+		title = '',
+		resizable = false,
+		mapSize = 75,
+		dataPane = false,
+		dataSize = 20,
+		headerPane = false,
+		headerSize = 5,
+		header,
+		map,
+		data
+	}: Props = $props();
 
 	setContext('olmap', mapStore);
 
-	let mapDiv: HTMLDivElement;
-	let headerResizer: HTMLDivElement;
+	let mapDiv: HTMLDivElement | undefined = $state();
 
 	onMount(() => {
 		$mapStore.setTarget(mapDiv);
-		headerResizer.style.cursor = 'auto';
 	});
 
 	onDestroy(() => {
@@ -36,18 +53,14 @@
 			maxSize={headerSize}
 			collapsible={false}
 		>
-			<slot name="header"></slot>
+			{@render header?.()}
 		</Resizable.Pane>
-		<Resizable.Handle
-			disabled={true}
-			bind:el={headerResizer}
-			class="data-[direction=vertical]:h-0 "
-		/>
+		<Resizable.Handle disabled={true} class="data-[direction=vertical]:h-0 " />
 	{/if}
 
 	<Resizable.Pane defaultSize={mapSize}>
 		<div bind:this={mapDiv} class="h-full">
-			<slot name="map" />
+			{@render map?.()}
 		</div>
 	</Resizable.Pane>
 	{#if resizable}
@@ -55,8 +68,8 @@
 	{/if}
 	{#if dataPane}
 		<Resizable.Pane defaultSize={dataSize} minSize={0} collapsible={true}>
-			<div class="h-2 bg-gray-200 border-0 dark:bg-gray-700" />
-			<slot name="data"></slot>
+			<div class="h-2 bg-gray-200 border-0 dark:bg-gray-700"></div>
+			{@render data?.()}
 		</Resizable.Pane>
 	{/if}
 </Resizable.PaneGroup>
