@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { Map } from 'ol';
 	import { setContext, onMount, onDestroy, type Snippet } from 'svelte';
-	import { writable, type Writable } from 'svelte/store';
-	import * as Resizable from '$lib/components/ui/resizable';
+	import * as Resizable from '$lib/components/ui/resizable/index.js';
 
 	interface Props {
-		mapStore: Writable<Map>;
+		mapStore: Map;
 		title?: string;
 		resizable?: boolean;
 		mapSize?: number;
@@ -37,11 +36,11 @@
 	let mapDiv: HTMLDivElement | undefined = $state();
 
 	onMount(() => {
-		$mapStore.setTarget(mapDiv);
+		mapStore.setTarget(mapDiv);
 	});
 
 	onDestroy(() => {
-		$mapStore.setTarget(undefined);
+		mapStore.setTarget(undefined);
 	});
 </script>
 

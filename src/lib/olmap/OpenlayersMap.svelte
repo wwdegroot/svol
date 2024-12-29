@@ -5,20 +5,15 @@
 	import 'ol/ol.css';
 
 	interface Props {
-		mapStore: Writable<Map>;
+		map: Map;
 		class?: string;
 		autoResize?: boolean;
 		children?: Snippet;
 	}
 
-	let {
-		mapStore,
-		class: classNames = 'w-full h-full',
-		autoResize = true,
-		children
-	}: Props = $props();
+	let { map, class: classNames = 'w-full h-full', autoResize = true, children }: Props = $props();
 
-	setContext('olmap', mapStore);
+	setContext('olmap', map);
 
 	let mapDiv: HTMLDivElement | undefined = $state();
 	let parent: HTMLElement;
@@ -47,14 +42,14 @@
 		siblings = parent.children;
 		// TODO: do something with a MutationObserver on the parent element: https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/MutationObserver#examples
 		// create a store of child elements and update / remove when changed to recalculate map height
-		$mapStore.setTarget(mapDiv);
+		map.setTarget(mapDiv);
 		if (autoResize) {
 			handleMapSize();
 		}
 	});
 
 	onDestroy(() => {
-		$mapStore.setTarget(undefined);
+		map.setTarget(undefined);
 	});
 </script>
 

@@ -10,4 +10,3 @@ import { writable, type Writable } from "svelte/store";
 export function createMapStore(options: MapOptions): Writable<Map> {
     return writable(new Map(options))
 }
-

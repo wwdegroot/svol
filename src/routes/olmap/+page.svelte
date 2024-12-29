@@ -1,12 +1,11 @@
 <script lang="ts">
-	import { OpenlayersMap, createMapStore } from '$lib/olmap/index.js';
+	import { OpenlayersMap, createMap } from '$lib/olmap/index.js';
 	import { Map, View } from 'ol';
 	import { onMount } from 'svelte';
-	import { type Writable } from 'svelte/store';
 	import TileLayer from 'ol/layer/Tile.js';
 	import OSM from 'ol/source/OSM.js';
 
-	let mapStore: Writable<Map> = $state();
+	let mapStore: Map = $state<Map>()!;
 
 	let pageMounted = $state(false);
 	onMount(() => {
@@ -14,7 +13,7 @@
 			center: [0, 0],
 			zoom: 3
 		});
-		mapStore = createMapStore({
+		mapStore = createMap({
 			layers: [
 				new TileLayer({
 					source: new OSM()
@@ -32,7 +31,7 @@
 		<span class="font-bold text-white">Header</span>
 	</div>
 	{#if pageMounted}
-		<OpenlayersMap {mapStore} class="w-full h-dvh" autoResize={true}></OpenlayersMap>
+		<OpenlayersMap map={mapStore} class="w-full h-dvh" autoResize={true}></OpenlayersMap>
 	{/if}
 
 	<div class="flex justify-center items-center content-center w-full h-16 bg-slate-700">
