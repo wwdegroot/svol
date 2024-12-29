@@ -1,15 +1,14 @@
 <script lang="ts">
-	import { ResizableOpenlayersMap, createMapStore } from '$lib/olmap/index.js';
+	import { ResizableOpenlayersMap, createMap } from '$lib/olmap/index.js';
 	import Expand from '$lib/mapui/menu/Expand.svelte';
 	import { Map, View } from 'ol';
 	import { onMount } from 'svelte';
-	import { type Writable } from 'svelte/store';
 	import TileLayer from 'ol/layer/Tile.js';
 	import OSM from 'ol/source/OSM.js';
 	import BboxExport from '$lib/bboxexport/BboxExport.svelte';
 	import WidgetGroup from '$lib/mapui/group/WidgetGroup.svelte';
 
-	let mapStore: Writable<Map> = $state();
+	let mapStore: Map = $state()!;
 	let pageMounted = $state(false);
 
 	onMount(() => {
@@ -17,7 +16,7 @@
 			center: [0, 0],
 			zoom: 3
 		});
-		mapStore = createMapStore({
+		mapStore = createMap({
 			layers: [
 				new TileLayer({
 					source: new OSM()
@@ -40,7 +39,7 @@
 				headerSize={5}
 				dataSize={35}
 				headerPane={true}
-				dataPane={true}
+				dataPane={false}
 			>
 				{#snippet header()}
 					<div class="h-full bg-slate-700 flex items-center justify-center shadow border-collapse">
