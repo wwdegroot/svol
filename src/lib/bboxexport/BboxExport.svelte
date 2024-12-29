@@ -9,7 +9,6 @@
 	import SquareX from 'lucide-svelte/icons/square-x';
 	import { getContext, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import type { Writable } from 'svelte/store';
 	import Map from 'ol/Map.js';
 	import { register, fromEPSGCode } from 'ol/proj/proj4.js';
 	import { get as getProjection, transformExtent } from 'ol/proj.js';
@@ -29,8 +28,8 @@
 
 	let { iconSize = 32, projections }: Props = $props();
 
-	let map: Writable<Map> = getContext('olmap');
-	const mapProjection = $map.getView().getProjection();
+	let map: Map = getContext('olmap');
+	const mapProjection = map.getView().getProjection();
 	let projectionList = $state([{ value: mapProjection.getCode(), label: mapProjection.getCode() }]);
 	let selected = $state(mapProjection.getCode());
 	const selectedLabel = $derived(projectionList.find((item) => item.value === selected)?.label);
@@ -49,7 +48,7 @@
 	});
 
 	function getBboxMapExtent() {
-		let extent: Extent = $map.getView().calculateExtent($map.getSize());
+		let extent: Extent = map.getView().calculateExtent(map.getSize());
 		let destination = getProjection(selected) ?? mapProjection;
 		let extent_selected = transformExtent(extent, mapProjection, destination);
 		bbox = extent_selected.map((n) => n.toFixed(decimalPlaces)).join(',');
