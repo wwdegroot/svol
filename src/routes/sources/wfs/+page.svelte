@@ -11,6 +11,7 @@
 	import type { StyleLike } from 'ol/style/Style.js';
 	import { LayerControl } from '$lib/layercontrol/index.js';
 	import type { FlatStyleLike } from 'ol/style/flat.js';
+	import Identify from '$lib/identify/Identify.svelte';
 
 	let mapStore: Map = $state()!;
 	let pageMounted = $state(false);
@@ -115,6 +116,7 @@
 						<div class=" bg-white shadow-xl rounded-sm border-2 border-slate-300 border-solid">
 							<LayerControl />
 						</div>
+						<Identify />
 					</WidgetGroup>
 				{/snippet}
 				{#snippet data()}
