@@ -1,17 +1,16 @@
 <script lang="ts">
-	import { OpenlayersMap, createMapStore } from '$lib/olmap/index.js';
+	import { OpenlayersMap, createMap } from '$lib/olmap/index.js';
 	import { Map, View } from 'ol';
 	import { onMount } from 'svelte';
-	import { type Writable } from 'svelte/store';
 	import TileLayer from 'ol/layer/Tile.js';
 	import OSM from 'ol/source/OSM.js';
 	import { useGeographic } from 'ol/proj.js';
 
-	let mapStore: Writable<Map>;
-	let mapStore2: Writable<Map>;
-	let mapStore3: Writable<Map>;
-	let mapStore4: Writable<Map>;
-	let mapStores: Writable<Map>[] = $state();
+	let mapStore: Map = $state()!;
+	let mapStore2: Map = $state()!;
+	let mapStore3: Map = $state()!;
+	let mapStore4: Map = $state()!;
+	let mapStores: Map[] = $state([]);
 
 	let pageMounted = $state(false);
 
@@ -21,7 +20,7 @@
 			center: [0, 0],
 			zoom: 3
 		});
-		mapStore = createMapStore({
+		mapStore = createMap({
 			layers: [
 				new TileLayer({
 					source: new OSM()
@@ -34,7 +33,7 @@
 			center: [12, 52],
 			zoom: 4
 		});
-		mapStore2 = createMapStore({
+		mapStore2 = createMap({
 			layers: [
 				new TileLayer({
 					source: new OSM()
@@ -47,7 +46,7 @@
 			center: [112, 32],
 			zoom: 4
 		});
-		mapStore3 = createMapStore({
+		mapStore3 = createMap({
 			layers: [
 				new TileLayer({
 					source: new OSM()
@@ -60,7 +59,7 @@
 			center: [250, 32],
 			zoom: 4
 		});
-		mapStore4 = createMapStore({
+		mapStore4 = createMap({
 			layers: [
 				new TileLayer({
 					source: new OSM()
@@ -69,7 +68,7 @@
 			view: view4
 		});
 		mapStores = [mapStore, mapStore2, mapStore3, mapStore4];
-		console.log(mapStores);
+		$inspect(mapStores);
 		pageMounted = true;
 	});
 </script>
@@ -86,7 +85,7 @@
 							<span class="font-bold text-white">Map {i + 1}</span>
 						</div>
 
-						<OpenlayersMap {mapStore} class="h-[80%]" autoResize={false}></OpenlayersMap>
+						<OpenlayersMap map={mapStore} class="h-[80%]" autoResize={false}></OpenlayersMap>
 
 						<div class="w-full h-[10%] bg-slate-700 rounded-b-md"></div>
 					</div>

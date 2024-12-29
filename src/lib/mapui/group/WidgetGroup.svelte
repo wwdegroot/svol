@@ -2,7 +2,6 @@
 	import { twMerge } from 'tailwind-merge';
 	import Control from 'ol/control/Control.js';
 	import { getContext, onMount, onDestroy, type Snippet } from 'svelte';
-	import type { Writable } from 'svelte/store';
 	import Map from 'ol/Map.js';
 
 	interface Props {
@@ -13,7 +12,7 @@
 	let { position, children }: Props = $props();
 	let uiControlGroupDiv: HTMLDivElement | undefined = $state();
 	let uiControlGroupControl: Control;
-	let map: Writable<Map> = getContext('olmap');
+	let map: Map = getContext('olmap');
 
 	let overlayContainerStopEvent = document.getElementsByClassName('ol-overlaycontainer-stopevent');
 
@@ -39,11 +38,11 @@
 		uiControlGroupControl = new Control({
 			element: uiControlGroupDiv
 		});
-		$map.addControl(uiControlGroupControl);
+		map.addControl(uiControlGroupControl);
 	});
 
 	onDestroy(() => {
-		$map.removeControl(uiControlGroupControl);
+		map.removeControl(uiControlGroupControl);
 	});
 </script>
 
