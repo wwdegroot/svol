@@ -5,57 +5,50 @@
     import VectorLayer from 'ol/layer/Vector.js';
     import VectorSource from 'ol/source/Vector.js';
     import { getContext, onDestroy, onMount } from 'svelte';
-	import type { Writable } from 'svelte/store';
-	import type { StyleLike } from 'ol/style/Style.js';
-	import { type FlatStyleLike } from 'ol/style/flat.js';
-    import {bbox} from 'ol/loadingstrategy.js';
-    
-    interface Props {
-		title: string;
-		style: StyleLike | FlatStyleLike;
-        features: Writable<Feature[]>;
-        clear: boolean
-	}
+    import type { Writable } from 'svelte/store';
+    import type { StyleLike } from 'ol/style/Style.js';
+    import { type FlatStyleLike } from 'ol/style/flat.js';
+    import { bbox } from 'ol/loadingstrategy.js';
 
-    let {
-		title,
-		style,
-        features,
-        clear = $bindable(false)
-	}: Props = $props();
+    interface Props {
+        title: string;
+        style: StyleLike | FlatStyleLike;
+        features: Writable<Feature[]>;
+        clear: boolean;
+    }
+
+    let { title, style, features, clear = $bindable(false) }: Props = $props();
 
     let map: Map = getContext('olmap');
-    
+
     const geojsonSource = new VectorSource({
-            format: new GeoJSON(),
-            strategy: bbox,
-        })
+        format: new GeoJSON(),
+        strategy: bbox
+    });
 
     const geojsonLayer = new VectorLayer({
         source: geojsonSource,
         style: style
-    })
-    geojsonLayer.set('title', title)
+    });
+    geojsonLayer.set('title', title);
+    geojsonLayer.set('layertype', "vector");
 
     $effect(() => {
         if (clear) {
-            geojsonSource.clear()
+            geojsonSource.clear();
             clear = false;
         }
-    })
+    });
 
     $effect(() => {
-        geojsonSource.addFeatures($features)
-    })
+        geojsonSource.addFeatures($features);
+    });
 
     onMount(() => {
-        map.addLayer(geojsonLayer)
-
+        map.addLayer(geojsonLayer);
     });
 
     onDestroy(() => {
-        map.removeLayer(geojsonLayer)
-    })
-
+        map.removeLayer(geojsonLayer);
+    });
 </script>
-
