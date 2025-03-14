@@ -18,7 +18,7 @@
 	let mapDiv: HTMLDivElement | undefined = $state();
 	let parent: HTMLElement;
 	let siblings: HTMLCollection;
-	let mapID: string = `map-${crypto.randomUUID().split(`-`)[0]}`;
+	let mapID = `map-${crypto.randomUUID().split("-")[0]}`;
 	let mapHeight: Writable<number> = writable(400);
 
 	function handleMapSize() {
