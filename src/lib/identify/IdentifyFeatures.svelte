@@ -7,7 +7,7 @@
 
 
 	interface Props {
-		children: Snippet<[FeatureLike]>;
+		children?: Snippet<[FeatureLike]>;
 		hitTolerance?: number;
 		layerIds?: string[];
 		layerFields?: LayerFieldsMap;
@@ -25,9 +25,8 @@
 				layerFilter: (layer) => {
 					if (layerIds.includes(layer.get('layerId')) || layerIds.length === 0) {
 						return true
-					} else {
-						return false
 					}
+					return false
 				},
 				hitTolerance: hitTolerance,
 			}
