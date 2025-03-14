@@ -21,5 +21,8 @@
 		<a class="flex items-center justify-center rounded h-16 w-48 bg-slate-400" href="/bboxexport/">
 			Bbox export widget
 		</a>
+		<a class="flex items-center justify-center rounded h-16 w-48 bg-slate-400" href="/sources/wfs/">
+			WFS Source and Identify Features
+		</a>
 	</div>
 </div>
