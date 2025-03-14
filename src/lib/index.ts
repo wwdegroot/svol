@@ -13,3 +13,5 @@ export { LayerControl } from "./layercontrol/index.js"
 // Identify Features
 export { IdentifyFeatures } from "./identify/index.js"
 export type { LayerField, LayerFields, LayerFieldsMap } from "./identify/index.js"
+// Map Ui items
+export { WidgetGroup, Expand } from './mapui/index.js'
