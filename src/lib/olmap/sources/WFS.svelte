@@ -16,6 +16,7 @@
 
 	interface Props {
 		url: string;
+		layerId?: string;
 		title: string;
 		crs: string;
 		featuretypes: string[];
@@ -28,6 +29,7 @@
 
 	let {
 		url,
+		layerId = $bindable(crypto.randomUUID()),
 		title,
 		crs,
 		featuretypes,
@@ -82,6 +84,8 @@
 			style: style
 		});
 		vectorLayer.set('title', title);
+		vectorLayer.set('layerId', layerId);
+
 		map.addLayer(vectorLayer);
 	});
 

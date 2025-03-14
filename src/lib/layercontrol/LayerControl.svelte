@@ -21,7 +21,6 @@
 
 	onMount(() => {
 		layers = map.getAllLayers().filter((l) => l.get('layertype') != 'base');
-		$inspect(layers);
 	});
 </script>
 

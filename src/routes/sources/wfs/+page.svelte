@@ -2,7 +2,6 @@
 	import { ResizableOpenlayersMap, createMap } from '$lib/olmap/index.js';
 	import { Map, View } from 'ol';
 	import { onMount } from 'svelte';
-	import TileLayer from 'ol/layer/Tile.js';
 	import WidgetGroup from '$lib/mapui/group/WidgetGroup.svelte';
 	import { brtStandaard } from '$lib/baselayers.js';
 	import { rdnewprojection } from '$lib/projection.js';
@@ -11,7 +10,7 @@
 	import type { StyleLike } from 'ol/style/Style.js';
 	import { LayerControl } from '$lib/layercontrol/index.js';
 	import type { FlatStyleLike } from 'ol/style/flat.js';
-	import Identify from '$lib/identify/Identify.svelte';
+	import IdentifyFeatures from '$lib/identify/IdentifyFeatures.svelte';
 
 	let mapStore: Map = $state()!;
 	let pageMounted = $state(false);
@@ -29,6 +28,7 @@
 		}),
 		zIndex: Infinity
 	});
+	let restWarmteId: string = $state(crypto.randomUUID())
 	let wfsSourceConfig: {
 		url: string;
 		title: string;
@@ -44,7 +44,7 @@
 		strategy: 'bbox',
 		style: wfsStyle
 	};
-
+	
 	let wfsSourceConfigCBS: {
 		url: string;
 		title: string;
@@ -90,6 +90,7 @@
 
 		pageMounted = true;
 	});
+
 </script>
 
 <div class="h-full w-full">
@@ -110,13 +111,13 @@
 					</div>
 				{/snippet}
 				{#snippet map()}
-					<WFSSource {...wfsSourceConfig} />
+					<WFSSource bind:layerId={restWarmteId} {...wfsSourceConfig} />
 					<WFSSource {...wfsSourceConfigCBS} />
 					<WidgetGroup position="top-right">
 						<div class=" bg-white shadow-xl rounded-sm border-2 border-slate-300 border-solid">
 							<LayerControl />
 						</div>
-						<Identify />
+						<IdentifyFeatures layerIds={[restWarmteId]} ></IdentifyFeatures>
 					</WidgetGroup>
 				{/snippet}
 				{#snippet data()}
