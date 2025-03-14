@@ -24,13 +24,16 @@
 	"files": [
 		"dist",
 		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
+		"!dist/**/*.spec.*",
+		"src/lib",
+		"!src/lib/**/*.test.*",
+		"!src/lib/**/*.spec.*"
 	],
 	"peerDependencies": {
 		"svelte": "^5.16.0"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^3.3.1",
+		"@sveltejs/adapter-auto": "^4.0.0",
 		"@sveltejs/kit": "^2.15.0",
 		"@sveltejs/package": "^2.3.7",
 		"@sveltejs/vite-plugin-svelte": "^5.0.3",
@@ -41,13 +44,13 @@
 		"bits-ui": "1.0.0-next.74",
 		"clsx": "^2.1.1",
 		"install": "^0.13.0",
-		"jsdom": "^25.0.1",
+		"jsdom": "^26.0.0",
 		"lucide-svelte": "^0.469.0",
-		"paneforge": "1.0.0-next.2",
+		"paneforge": "1.0.0-next.4",
 		"postcss": "^8.4.47",
 		"prettier": "^3.3.3",
 		"prettier-plugin-svelte": "^3.2.7",
-		"publint": "^0.2.11",
+		"publint": "^0.3.9",
 		"svelte": "^5.0.0",
 		"svelte-check": "^4.0.4",
 		"tailwind-merge": "^2.5.3",
@@ -65,5 +68,11 @@
 	"dependencies": {
 		"ol": "^10.2.1",
 		"proj4": "^2.12.1"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"@sveltejs/kit",
+			"esbuild"
+		]
 	}
 }
