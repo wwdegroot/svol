@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getContext, onDestroy, onMount, type Snippet } from 'svelte';
+	import { twMerge } from 'tailwind-merge'
 	import Map from 'ol/Map.js';
 	import type MapBrowserEvent from 'ol/MapBrowserEvent.js';
 	import type { FeatureLike } from 'ol/Feature.js';
@@ -7,15 +8,18 @@
 
 
 	interface Props {
+		resultDivClasses?: string;
 		children?: Snippet<[FeatureLike]>;
 		hitTolerance?: number;
 		layerIds?: string[];
 		layerFields?: LayerFieldsMap;
 	}
-	let { children, hitTolerance = 0, layerIds = [], layerFields }: Props = $props();
+	let { resultDivClasses = "", children, hitTolerance = 0, layerIds = [], layerFields }: Props = $props();
 
 	let map: Map = $state(getContext('olmap'));
 	let identifyResults = $state<FeatureLike[]>([]);
+	let showResults = $state(false);
+
 
 	function identifyMapFeatures(event: MapBrowserEvent<MouseEvent>) {
 		identifyResults = [];
@@ -33,7 +37,8 @@
 		);
 		console.log(features)
 		features = features.map((f) => filterAndRenameObjectProperties(f, layerFields))
-
+		
+		showResults = true
 		identifyResults = [...features]
 	}
 
@@ -71,6 +76,16 @@
 
 		return feature;
 	}
+
+	function formatPropValues(value: any): string {
+
+		switch (typeof value) {
+			case "object":
+				return JSON.stringify(value)
+			default:
+				return String(value);
+		} 
+	}
 	// check if we need to alias or remove properties
 	// function filterLayerFields(features: FeatureLike[]): FeatureLike[] {
 		
@@ -87,7 +102,7 @@
 	// }
 
 	onMount(() => {
-		map.on('click', (e: MapBrowserEvent<MouseEvent>) => identifyMapFeatures(e));
+		map.on('click', identifyMapFeatures);
 	});
 
 	onDestroy(() => {
@@ -96,18 +111,28 @@
 </script>
 
 {#snippet feature(feature: FeatureLike)}
-	<div class="grid grid-cols-1 overflow-y-auto">
+	<div class="grid grid-cols-1 overflow-y-auto py-2">
 		{#each Object.entries(feature.getProperties()) as [key, value]}
-			<div class="grid grid-cols-6">
+			{#if key !== "geometry"}
+			<div class="grid grid-cols-6 max-w-96">
 				<div class="col-span-2">{key}:</div>
-				<div class="col-span-4">{value}</div>
+				<div class="col-span-4">{formatPropValues(value)}</div>
 			</div>
+			{/if}
 		{/each}
 	</div>
 {/snippet}
 
 
-{#if identifyResults.length > 0}
+{#if identifyResults.length > 0 && showResults}
+	<div class={twMerge("bg-white rounded-md grid grid-cols max-w-96 max-h-52 overflow-y-auto", resultDivClasses)}>
+		<div class="flex">
+			<div class="pl-2 w-full font-bold">Identify Results</div>
+			<div class="flex justify-end w-full">
+				<button class="pr-2" onclick={() => showResults = false}>X</button>
+			</div>
+			
+		</div>
 	{#if children}
 		<div>
 			{#each identifyResults as result}
@@ -116,11 +141,11 @@
 			
 		</div>
 	{:else}
-		<div class="flex flex-col bg-white p-2 max-h-52">
+		<div class="flex flex-col bg-white p-2 divide-y-2">
 			{#each identifyResults as result}
 				{@render feature(result)}
 			{/each}
 		</div>
 	{/if}
-
+	</div>
 {/if}
