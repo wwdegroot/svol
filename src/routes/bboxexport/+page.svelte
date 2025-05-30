@@ -48,7 +48,7 @@
 				{/snippet}
 				{#snippet map()}
 					<WidgetGroup position="top-right">
-						<BboxExport projections={[{ value: 'EPSG:28992', label: 'EPSG:28992' }]}></BboxExport>
+						<BboxExport projections={[{ value: 'EPSG:28992', label: 'EPSG:28992' }, { value: 'EPSG:4326', label: 'EPSG:4326' }]}></BboxExport>
 					</WidgetGroup>
 				{/snippet}
 				{#snippet data()}
