@@ -94,7 +94,7 @@
 </script>
 
 <div class="h-full w-full">
-	<div class="h-[100%]">
+	<div class="h-full">
 		{#if pageMounted}
 			<ResizableOpenlayersMap
 				{mapStore}
@@ -106,7 +106,7 @@
 				dataPane={false}
 			>
 				{#snippet header()}
-					<div class="h-full bg-slate-700 flex items-center justify-center shadow border-collapse">
+					<div class="h-full bg-slate-700 flex items-center justify-center shadow-sm border-collapse">
 						<span class="font-semibold text-white">WFS Source</span>
 					</div>
 				{/snippet}
