@@ -2,11 +2,11 @@
 	import * as Popover from '$lib/components/ui/popover/index.js';
 	import * as Select from '$lib/components/ui/select/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import Scan from 'lucide-svelte/icons/scan';
-	import SquarePen from 'lucide-svelte/icons/square-pen';
-	import ClipboardCopy from 'lucide-svelte/icons/clipboard-copy';
-	import ClipboardCheck from 'lucide-svelte/icons/clipboard-check';
-	import SquareX from 'lucide-svelte/icons/square-x';
+	import Scan from '@lucide/svelte/icons/scan';
+	import SquarePen from '@lucide/svelte/icons/square-pen';
+	import ClipboardCopy from '@lucide/svelte/icons/clipboard-copy';
+	import ClipboardCheck from '@lucide/svelte/icons/clipboard-check';
+	import SquareX from '@lucide/svelte/icons/square-x';
 	import { getContext, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import Map from 'ol/Map.js';
@@ -57,7 +57,7 @@
 
 <Popover.Root>
 	<Popover.Trigger>
-		<div class="rounded-md bg-white dark:bg-slate-800 shadow">
+		<div class="rounded-md bg-white dark:bg-slate-800 shadow-sm">
 			<Scan size={iconSize} fill={'fill-black dark:fill-white'}></Scan>
 		</div>
 	</Popover.Trigger>

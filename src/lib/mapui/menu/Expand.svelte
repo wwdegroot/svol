@@ -16,7 +16,7 @@
 	let {
 		open = $bindable(false),
 		expandTitle = '',
-		classNames = 'bg-white rounded shadow',
+		classNames = 'bg-white rounded shadow-sm',
 		icon,
 		content
 	}: Props = $props();
