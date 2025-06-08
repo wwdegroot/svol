@@ -56,6 +56,7 @@
 				"stroke-line-cap": 'butt',
 				"stroke-line-dash": [5, 10],
 				"stroke-color": 'black',
+				"circle-stroke-width": 3,
 			}
 
 	onMount(async () => {
