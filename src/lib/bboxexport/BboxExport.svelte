@@ -44,26 +44,37 @@
 	let decimalPlaces: number = $state(2);
 	let extent: Extent = $state([]) as Extent;
 	let bboxFormatted = $derived.by(() => {
-		// $inspect(extent)
 		return extent.map(n => n.toFixed(decimalPlaces)).join(', ')
 	})
 	let copied = $state(false);
 	let copiedClear: number = 0;
 	let drawActive = $state(false)
 
+	const bboxStyle = {
+				"circle-radius": 5,
+				"circle-fill-color": 'rgba(116,140,191,0.4)',
+				"stroke-line-cap": 'butt',
+				"stroke-line-dash": [5, 10],
+				"stroke-color": 'black',
+			}
+
 	onMount(async () => {
 		// Add drawing layer
 		drawSource = new VectorSource({wrapX: false})
 		drawVector = new VectorLayer({
 			source: drawSource,
+			style: bboxStyle,
 		})
 		draw = new Draw({
 			source: drawSource,
 			type: 'Circle',
+			style: bboxStyle,
 			geometryFunction: createBox(),
 		})
+		draw.on('drawend', drawFeatureExtent)
 		map.addLayer(drawVector);
 
+		// Get Projection list
 		projectionList = [...projectionList, ...projections];
 		register(proj4);
 		projectionList.forEach(async (projection) => {
@@ -102,19 +113,17 @@
 	function toggleDrawInteraction() {
 		if (drawActive) {
 			map.addInteraction(draw)
-			draw.on('drawend', drawFeatureExtent)
 		} else {
-			draw.un('drawend', drawFeatureExtent)
 			map.removeInteraction(draw)
 			drawSource.clear()
 		}
-
 	}
 
 	onDestroy(() => {
 		// Remove drawing layer
 		map.removeLayer(drawVector)
 		// Remove draw interaction
+		draw.un('drawend', drawFeatureExtent)
 		map.removeInteraction(draw)
 	})
 </script>
