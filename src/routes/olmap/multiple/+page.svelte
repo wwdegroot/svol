@@ -73,19 +73,19 @@
 	});
 </script>
 
-<div class="h-full w-full p-2">
+<div class="h-dvh w-full p-2">
 	<div class="flex items-center justify-center">
 		<div class="grid grid-cols-2 gap-2 h-full">
 			{#if pageMounted}
 				{#each mapStores as mapStore, i}
-					<div class="h-full col-span-1 min-h-80 min-w-64">
+					<div class="flex flex-col h-full col-span-1 min-h-80 min-w-64">
 						<div
 							class="flex justify-center items-center content-center h-[10%] bg-slate-700 rounded-t-md"
 						>
 							<span class="font-bold text-white">Map {i + 1}</span>
 						</div>
 
-						<OpenlayersMap map={mapStore} class="h-[80%]" autoResize={false}></OpenlayersMap>
+						<OpenlayersMap map={mapStore} ></OpenlayersMap>
 
 						<div class="w-full h-[10%] bg-slate-700 rounded-b-md"></div>
 					</div>

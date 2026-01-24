@@ -26,12 +26,12 @@
 	});
 </script>
 
-<div class="h-full w-full">
+<div class="flex flex-col h-dvh w-full">
 	<div class="flex justify-center items-center content-center h-16 bg-slate-700">
 		<span class="font-bold text-white">Header</span>
 	</div>
 	{#if pageMounted}
-		<OpenlayersMap map={mapStore} class="w-full h-dvh" autoResize={true}></OpenlayersMap>
+		<OpenlayersMap map={mapStore}></OpenlayersMap>
 	{/if}
 
 	<div class="flex justify-center items-center content-center w-full h-16 bg-slate-700">
