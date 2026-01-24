@@ -131,8 +131,8 @@
 
 <Popover.Root>
 	<Popover.Trigger>
-		<div class="rounded-md bg-white dark:bg-slate-800 shadow-sm">
-			<Scan size={iconSize} fill={'fill-black dark:fill-white'}></Scan>
+		<div >
+			<Scan size={iconSize} class="rounded-md bg-white dark:bg-slate-800 shadow-sm stroke-black dark:stroke-white" ></Scan>
 		</div>
 	</Popover.Trigger>
 	<Popover.Content interactOutsideBehavior="ignore">
