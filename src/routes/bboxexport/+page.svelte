@@ -1,62 +1,81 @@
 <script lang="ts">
-	import { ResizableOpenlayersMap, createMap } from '$lib/olmap/index.js';
-	import Expand from '$lib/mapui/menu/Expand.svelte';
-	import { Map, View } from 'ol';
-	import { onMount } from 'svelte';
-	import TileLayer from 'ol/layer/Tile.js';
-	import OSM from 'ol/source/OSM.js';
-	import BboxExport from '$lib/bboxexport/BboxExport.svelte';
-	import WidgetGroup from '$lib/mapui/group/WidgetGroup.svelte';
+    import { MapManager, OpenlayersMap } from '$lib/index.js';
+    import { View } from 'ol';
+    import { onMount } from 'svelte';
+    import BboxExport from '$lib/bboxexport/BboxExport.svelte';
+    import WidgetGroup from '$lib/mapui/group/WidgetGroup.svelte';
+    import type { MapOptions } from 'ol/Map.js';
+    import { twMerge } from 'tailwind-merge';
+    import ChevronUp from '@lucide/svelte/icons/chevron-up';
 
-	let mapStore: Map = $state()!;
-	let pageMounted = $state(false);
+    let pageMounted = $state(false);
+    let mapOptions: MapOptions = $state({});
+    let mapManager: MapManager | undefined = $state(undefined);
+    let featureDivHeight: string = $state('h-16');
+    let showFeatureDiv: boolean = $state(false);
 
-	onMount(() => {
-		let view = new View({
-			center: [0, 0],
-			zoom: 3
-		});
-		mapStore = createMap({
-			layers: [
-				new TileLayer({
-					source: new OSM()
-				})
-			],
-			view: view
-		});
+    onMount(() => {
+        let view = new View({
+            center: [0, 0],
+            zoom: 3
+        });
+        mapOptions = {
+            view: view
+        };
 
-		pageMounted = true;
-	});
+        pageMounted = true;
+    });
 </script>
 
-<div class="h-full w-full">
-	<div class="h-full">
-		{#if pageMounted}
-			<ResizableOpenlayersMap
-				{mapStore}
-				resizable={true}
-				mapSize={60}
-				headerSize={5}
-				dataSize={35}
-				headerPane={true}
-				dataPane={false}
-			>
-				{#snippet header()}
-					<div class="h-full bg-slate-700 flex items-center justify-center shadow-sm border-collapse">
-						<span class="font-semibold text-white">BBOX export</span>
-					</div>
-				{/snippet}
-				{#snippet map()}
-					<WidgetGroup position="top-right">
-						<BboxExport projections={[{ value: 'EPSG:28992', label: 'EPSG:28992' }, { value: 'EPSG:4326', label: 'EPSG:4326' }]}></BboxExport>
-					</WidgetGroup>
-				{/snippet}
-				{#snippet data()}
-					<div class="flex h-full items-center justify-center p-6">
-						<span class="font-semibold">Show Feature Data Here</span>
-					</div>
-				{/snippet}
-			</ResizableOpenlayersMap>
-		{/if}
-	</div>
+<div class="flex flex-col h-dvh w-full">
+    <div class="flex justify-center items-center content-center h-16 bg-slate-700">
+        <span class="font-bold text-white">BBOX Export</span>
+    </div>
+    {#if pageMounted}
+        <OpenlayersMap {mapOptions} bind:mapManager>
+            <WidgetGroup position="top-right">
+                <BboxExport
+                    projections={[
+                        { value: 'EPSG:28992', label: 'EPSG:28992' },
+                        { value: 'EPSG:4326', label: 'EPSG:4326' }
+                    ]}
+                ></BboxExport>
+            </WidgetGroup>
+        </OpenlayersMap>
+    {/if}
+    <div class="flex items-center">
+        <div class="flex-grow border-t border-slate-400"></div>
+        <button
+            class=""
+            onclick={() => {
+                if (!showFeatureDiv) {
+                    showFeatureDiv = true;
+                    featureDivHeight = 'h-64';
+                } else {
+                    showFeatureDiv = false;
+                    featureDivHeight = 'h-16';
+                }
+            }}
+        >
+            <div class="inline-grid grid-cols-1 grid-rows-1">
+                <div
+                    class="transition-transform duration-300 ease-in-out {showFeatureDiv
+                        ? 'rotate-180'
+                        : 'rotate-0'}"
+                >
+                    <ChevronUp></ChevronUp>
+                </div>
+            </div>
+        </button>
+
+        <div class="flex-grow border-t border-slate-400"></div>
+    </div>
+    <div
+        class={twMerge(
+            'flex flex-col justify-center items-center content-center w-full',
+            featureDivHeight
+        )}
+    >
+        <span class="font-bold text-black"> Show Feature Data Here </span>
+    </div>
 </div>

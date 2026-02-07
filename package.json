@@ -1,78 +1,77 @@
 {
-	"name": "svol",
-	"version": "0.0.4",
-	"license": "MIT",
-	"scripts": {
-		"dev": "vite dev",
-		"build": "vite build && npm run package",
-		"preview": "vite preview",
-		"package": "svelte-kit sync && svelte-package && publint",
-		"prepublishOnly": "npm run package",
-		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"test": "vitest run",
-		"test:watch": "vitest",
-		"lint": "prettier --check .",
-		"format": "prettier --write ."
-	},
-	"exports": {
-		".": {
-			"types": "./dist/index.d.ts",
-			"svelte": "./dist/index.js"
-		}
-	},
-	"files": [
-		"dist",
-		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*",
-		"src/lib",
-		"!src/lib/**/*.test.*",
-		"!src/lib/**/*.spec.*"
-	],
-	"peerDependencies": {
-		"svelte": "^5.16.0"
-	},
-	"devDependencies": {
-		"@lucide/svelte": "^0.513.0",
-		"@sveltejs/adapter-auto": "^6.0.0",
-		"@sveltejs/kit": "^2.19.0",
-		"@sveltejs/package": "^2.3.10",
-		"@sveltejs/vite-plugin-svelte": "^5.0.3",
-		"@tailwindcss/vite": "^4.1.8",
-		"@testing-library/jest-dom": "^6.6.3",
-		"@testing-library/svelte": "^5.2.7",
-		"@types/proj4": "^2.5.6",
-		"bits-ui": "2.4.1",
-		"clsx": "^2.1.1",
-		"install": "^0.13.0",
-		"jsdom": "^26.0.0",
-		"paneforge": "1.0.0-next.5",
-		"postcss": "^8.5.3",
-		"prettier": "^3.5.3",
-		"prettier-plugin-svelte": "^3.3.3",
-		"publint": "^0.3.9",
-		"svelte": "^5.33.17",
-		"svelte-check": "^4.1.5",
-		"tailwind-variants": "^1.0.0",
-		"tailwindcss": "^4.1.8",
-		"tslib": "^2.8.1",
-		"tw-animate-css": "^1.3.4",
-		"typescript": "^5.8.2",
-		"vite": "^6.2.2",
-		"vitest": "^3.0.8"
-	},
-	"svelte": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"type": "module",
-	"dependencies": {
-		"ol": "^10.4.0",
-		"proj4": "^2.15.0",
-		"tailwind-merge": "^3.3.0"
-	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"@sveltejs/kit",
-			"esbuild"
-		]
-	}
+    "name": "svol",
+    "version": "0.0.5",
+    "license": "MIT",
+    "scripts": {
+        "dev": "vite dev",
+        "build": "vite build && npm run package",
+        "preview": "vite preview",
+        "package": "svelte-kit sync && svelte-package && publint",
+        "prepublishOnly": "npm run package",
+        "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+        "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "lint": "prettier --check .",
+        "format": "prettier --write ."
+    },
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "svelte": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist",
+        "!dist/**/*.test.*",
+        "!dist/**/*.spec.*",
+        "src/lib",
+        "!src/lib/**/*.test.*",
+        "!src/lib/**/*.spec.*"
+    ],
+    "peerDependencies": {
+        "svelte": "^5.16.0"
+    },
+    "devDependencies": {
+        "@lucide/svelte": "^0.513.0",
+        "@sveltejs/adapter-auto": "^6.0.0",
+        "@sveltejs/kit": "^2.19.0",
+        "@sveltejs/package": "^2.3.10",
+        "@sveltejs/vite-plugin-svelte": "^5.0.3",
+        "@tailwindcss/vite": "^4.1.8",
+        "@testing-library/jest-dom": "^6.6.3",
+        "@testing-library/svelte": "^5.2.7",
+        "@types/proj4": "^2.5.6",
+        "bits-ui": "2.4.1",
+        "clsx": "^2.1.1",
+        "install": "^0.13.0",
+        "jsdom": "^26.0.0",
+        "postcss": "^8.5.3",
+        "prettier": "^3.5.3",
+        "prettier-plugin-svelte": "^3.3.3",
+        "publint": "^0.3.9",
+        "svelte": "^5.33.17",
+        "svelte-check": "^4.1.5",
+        "tailwind-variants": "^1.0.0",
+        "tailwindcss": "^4.1.8",
+        "tslib": "^2.8.1",
+        "tw-animate-css": "^1.3.4",
+        "typescript": "^5.8.2",
+        "vite": "^6.2.2",
+        "vitest": "^3.0.8"
+    },
+    "svelte": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "type": "module",
+    "dependencies": {
+        "ol": "^10.4.0",
+        "proj4": "^2.15.0",
+        "tailwind-merge": "^3.3.0"
+    },
+    "pnpm": {
+        "onlyBuiltDependencies": [
+            "@sveltejs/kit",
+            "esbuild"
+        ]
+    }
 }
