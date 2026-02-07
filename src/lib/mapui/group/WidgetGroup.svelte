@@ -1,51 +1,54 @@
 <script lang="ts">
-	import { twMerge } from 'tailwind-merge';
-	import Control from 'ol/control/Control.js';
-	import { getContext, onMount, onDestroy, type Snippet } from 'svelte';
-	import Map from 'ol/Map.js';
+    import { twMerge } from 'tailwind-merge';
+    import Control from 'ol/control/Control.js';
+    import { getContext, onMount, onDestroy, type Snippet } from 'svelte';
+    import { MapManager, MAPMANAGER_KEY } from '$lib/olmap/index.js';
+    import type { ClassValue } from 'svelte/elements';
 
-	interface Props {
-		position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
-		children?: Snippet;
-	}
+    interface Props {
+        position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
+        children?: Snippet;
+        class?: ClassValue;
+    }
 
-	let { position, children }: Props = $props();
-	let uiControlGroupDiv: HTMLDivElement | undefined = $state();
-	let uiControlGroupControl: Control;
-	let map: Map = getContext('olmap');
+    let { position, children, class: classValue = '' }: Props = $props();
+    let uiControlGroupDiv: HTMLDivElement | undefined = $state();
+    let uiControlGroupControl: Control;
+    let mapManager: MapManager = getContext(MAPMANAGER_KEY);
 
-	let overlayContainerStopEvent = document.getElementsByClassName('ol-overlaycontainer-stopevent');
+    let positionCss = $state('');
+    switch (position) {
+        case 'top-left':
+            positionCss = 'left-2 top-2';
+            break;
+        case 'top-right':
+            positionCss = 'right-2 top-2';
+            break;
+        case 'bottom-left':
+            positionCss = 'left-2 bottom-2';
+            break;
+        case 'bottom-right':
+            positionCss = 'right-2 bottom-2';
+            break;
+        default:
+            positionCss = 'right-2 top-2';
+            break;
+    }
+    onMount(() => {
+        uiControlGroupControl = new Control({
+            element: uiControlGroupDiv
+        });
+        mapManager.map.addControl(uiControlGroupControl);
+    });
 
-	let positionCss = $state('');
-	switch (position) {
-		case 'top-left':
-			positionCss = 'left-2 top-2';
-			break;
-		case 'top-right':
-			positionCss = 'right-2 top-2';
-			break;
-		case 'bottom-left':
-			positionCss = 'left-2 bottom-2';
-			break;
-		case 'bottom-right':
-			positionCss = 'right-2 bottom-2';
-			break;
-		default:
-			positionCss = 'right-2 top-2';
-			break;
-	}
-	onMount(() => {
-		uiControlGroupControl = new Control({
-			element: uiControlGroupDiv
-		});
-		map.addControl(uiControlGroupControl);
-	});
-
-	onDestroy(() => {
-		map.removeControl(uiControlGroupControl);
-	});
+    onDestroy(() => {
+        mapManager.map.removeControl(uiControlGroupControl);
+    });
 </script>
 
-<div class={twMerge('absolute ', positionCss)} bind:this={uiControlGroupDiv}>
-	{@render children?.()}
+<div
+    class={twMerge('absolute ', [positionCss, classValue as string])}
+    bind:this={uiControlGroupDiv}
+>
+    {@render children?.()}
 </div>
