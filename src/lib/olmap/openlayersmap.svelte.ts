@@ -9,28 +9,6 @@ import { OSM } from 'ol/source.js';
 import type { ProjectionLike } from 'ol/proj.js';
 
 /**
- * Create an openlayers Map
- *
- * @param {MapOptions} options
- * @returns openlayers map object
- */
-export function createMap(options: MapOptions): Map {
-    let map = new Map(options);
-    return map;
-}
-
-/**
- * Create an openlayers Map $state
- *
- * @param {MapOptions} options
- * @returns openlayers map state object
- */
-export function createMapState(options: MapOptions = {}): Map {
-    let map = $state(new Map(options));
-    return map;
-}
-
-/**
  * Map Manager class to access and manage the openlayers map instance with svelte $state runes
  */
 export class MapManager {
