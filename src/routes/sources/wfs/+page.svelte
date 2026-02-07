@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { MapManager, OlMapManager } from '$lib/olmap/index.js';
+    import { MapManager, OpenlayersMap } from '$lib/index.js';
     import { View } from 'ol';
     import { onMount } from 'svelte';
     import WidgetGroup from '$lib/mapui/group/WidgetGroup.svelte';
@@ -40,7 +40,7 @@
         <div class="h-16 bg-slate-700 flex items-center justify-center shadow-sm border-collapse">
             <span class="font-semibold text-white">WFS Source</span>
         </div>
-        <OlMapManager {mapOptions} bind:mapManager>
+        <OpenlayersMap {mapOptions} bind:mapManager>
             <WFSSource bind:layerId={restWarmteId} {...wfsSourceConfig} />
             <WFSSource {...wfsSourceConfigCBS} />
             <WidgetGroup position="top-right">
@@ -49,7 +49,7 @@
                 </div>
                 <IdentifyFeatures layerIds={[restWarmteId]}></IdentifyFeatures>
             </WidgetGroup>
-        </OlMapManager>
+        </OpenlayersMap>
 
         <div class="flex items-center">
             <div class="flex-grow border-t border-slate-400"></div>

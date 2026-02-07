@@ -1,6 +1,5 @@
 <script lang="ts">
     import { getContext, onDestroy, onMount } from 'svelte';
-    import Map from 'ol/Map.js';
     import GeoJSON from 'ol/format/GeoJSON.js';
     import VectorSource, { type LoadingStrategy } from 'ol/source/Vector.js';
     import { Stroke, Style } from 'ol/style.js';

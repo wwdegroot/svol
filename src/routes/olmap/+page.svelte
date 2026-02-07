@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { MapManager, OlMapManager, OpenlayersMap, createMap } from '$lib/olmap/index.js';
-    import { Map, View } from 'ol';
+    import { MapManager, OpenlayersMap } from '$lib/index.js';
+    import { View } from 'ol';
     import { onMount } from 'svelte';
     import type { MapOptions } from 'ol/Map.js';
 
@@ -25,7 +25,7 @@
         <div class="flex justify-center items-center content-center h-16 bg-slate-700">
             <span class="font-bold text-white">OpenLayers Map</span>
         </div>
-        <OlMapManager {mapOptions} bind:mapManager></OlMapManager>
+        <OpenlayersMap {mapOptions} bind:mapManager></OpenlayersMap>
         <div class="flex justify-center items-center content-center w-full h-16">
             <span class="font-bold text-black"
                 >center: {mapManager?.center} projection: {mapManager?.projection?.toString()}

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { OlMapManager, MapManager } from '$lib/olmap/index.js';
+    import { OpenlayersMap, MapManager } from '$lib/index.js';
     import { onMount } from 'svelte';
     import { View } from 'ol';
     import type { MapOptions } from 'ol/Map.js';
@@ -28,7 +28,7 @@
         <div class="flex justify-center items-center content-center h-16 bg-slate-700">
             <span class="font-bold text-white">OpenLayers Map</span>
         </div>
-        <OlMapManager {mapOptions} bind:mapManager>
+        <OpenlayersMap {mapOptions} bind:mapManager>
             <WidgetGroup position="top-right" class="flex flex-col gap-4 items-end">
                 <GoToXY></GoToXY>
                 <div class="flex flex-col gap-2 bg-white w-34 rounded shadow">
@@ -37,7 +37,7 @@
                     <div class="pl-4 pb-2">y: {mapManager?.center?.[1].toFixed(3)}</div>
                 </div>
             </WidgetGroup>
-        </OlMapManager>
+        </OpenlayersMap>
 
         <div class="flex justify-center items-center content-center w-full h-16">
             <span class="font-bold text-black"

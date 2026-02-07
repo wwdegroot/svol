@@ -1,6 +1,5 @@
 <script lang="ts">
-    import { MapManager, OlMapManager } from '$lib/olmap/index.js';
-    import { fade } from 'svelte/transition';
+    import { MapManager, OpenlayersMap } from '$lib/index.js';
     import { View } from 'ol';
     import { onMount } from 'svelte';
     import BboxExport from '$lib/bboxexport/BboxExport.svelte';
@@ -8,7 +7,6 @@
     import type { MapOptions } from 'ol/Map.js';
     import { twMerge } from 'tailwind-merge';
     import ChevronUp from '@lucide/svelte/icons/chevron-up';
-    import ChevronDown from '@lucide/svelte/icons/chevron-down';
 
     let pageMounted = $state(false);
     let mapOptions: MapOptions = $state({});
@@ -34,7 +32,7 @@
         <span class="font-bold text-white">BBOX Export</span>
     </div>
     {#if pageMounted}
-        <OlMapManager {mapOptions} bind:mapManager>
+        <OpenlayersMap {mapOptions} bind:mapManager>
             <WidgetGroup position="top-right">
                 <BboxExport
                     projections={[
@@ -43,7 +41,7 @@
                     ]}
                 ></BboxExport>
             </WidgetGroup>
-        </OlMapManager>
+        </OpenlayersMap>
     {/if}
     <div class="flex items-center">
         <div class="flex-grow border-t border-slate-400"></div>

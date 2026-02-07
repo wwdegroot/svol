@@ -1,17 +1,19 @@
 // Openlayers Map
-export { OpenlayersMap, ResizableOpenlayersMap, createMapStore, createMap, createMapState } from "./olmap/index.js";
+export { OlMapManager as OpenlayersMap, MapManager, MAPMANAGER_KEY } from './olmap/index.js';
 // Projections
-export { rdnewprojection } from "./projection.js";
+export { rdnewprojection } from './projection.js';
 // Baselayers PDOK
-export { baselayers, brtStandaard, brtGrijs, brtPastel, brtWater } from './baselayers.js'
+export { baselayers, brtStandaard, brtGrijs, brtPastel, brtWater } from './baselayers.js';
 // Sources
-export { WFS, DynamicGeoJson } from './olmap/index.js'
+export { WFS, DynamicGeoJson } from './olmap/index.js';
 // BBOX export
-export { BboxExport } from "./bboxexport/index.js";
+export { BboxExport } from './bboxexport/index.js';
 // Basic LayerControl
-export { LayerControl } from "./layercontrol/index.js"
+export { LayerControl } from './layercontrol/index.js';
 // Identify Features
-export { IdentifyFeatures } from "./identify/index.js"
-export type { LayerField, LayerFields, LayerFieldsMap } from "./identify/index.js"
+export { IdentifyFeatures } from './identify/index.js';
+export type { LayerField, LayerFields, LayerFieldsMap } from './identify/index.js';
 // Map Ui items
-export { WidgetGroup, Expand } from './mapui/index.js'
+export { WidgetGroup, Expand } from './mapui/index.js';
+// Map Control
+export { GoToXY } from './gotoxy/index.js';
