@@ -37,7 +37,6 @@
             },
             hitTolerance: hitTolerance
         });
-        console.log(features);
         features = features.map((f) => filterAndRenameObjectProperties(f, layerFields));
 
         showResults = true;
@@ -48,7 +47,6 @@
         feature: FeatureLike,
         layerFieldsMap?: LayerFieldsMap
     ): FeatureLike {
-        console.log(feature);
         // No filtering needed return as is.
         if (!layerFieldsMap) {
             return feature;
