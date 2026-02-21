@@ -17,3 +17,6 @@ export type { LayerField, LayerFields, LayerFieldsMap } from './identify/index.j
 export { WidgetGroup, Expand } from './mapui/index.js';
 // Map Control
 export { GoToXY } from './gotoxy/index.js';
+// Printing
+export { Print, captureMapImage } from '$lib/print/index.js';
+export type { CaptureResult } from '$lib/print/index.js';
