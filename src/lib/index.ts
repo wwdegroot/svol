@@ -5,7 +5,7 @@ export { rdnewprojection } from './projection.js';
 // Baselayers PDOK
 export { baselayers, brtStandaard, brtGrijs, brtPastel, brtWater } from './baselayers.js';
 // Sources
-export { WFS, DynamicGeoJson } from './olmap/index.js';
+export { WFS, DynamicGeoJson, FlatGeoBuf } from './olmap/index.js';
 // BBOX export
 export { BboxExport } from './bboxexport/index.js';
 // Basic LayerControl
