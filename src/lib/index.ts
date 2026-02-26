@@ -22,3 +22,5 @@ export { Print, captureMapImage } from '$lib/print/index.js';
 export type { CaptureResult } from '$lib/print/index.js';
 // Show XY Mouse coordinates
 export { ShowXY } from './showxy/index.js';
+// Simple Feature Info Popup
+export { SimpleInfoPopup, SimpleFeatureInfoTable } from './infopopup/index.js';
