@@ -5,3 +5,4 @@ export { default as OlMapManager } from './OlMapManager.svelte';
 // sources
 export { default as WFS } from './sources/WFS.svelte';
 export { default as DynamicGeoJson } from './sources/geojson/DynamicGeoJsonVector.svelte';
+export { default as FlatGeoBuf } from './sources/fgb/FlatGeoBuf.svelte';
