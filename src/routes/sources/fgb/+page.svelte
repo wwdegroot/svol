@@ -4,6 +4,8 @@
     import { onMount } from 'svelte';
     import type { MapOptions } from 'ol/Map.js';
     import FlatGeoBuf from '$lib/olmap/sources/fgb/FlatGeoBuf.svelte';
+    import ShowXY from '$lib/showxy/ShowXY.svelte';
+    import WidgetGroup from '$lib/mapui/group/WidgetGroup.svelte';
 
     let pageMounted = $state(false);
     let mapOptions: MapOptions = $state({});
@@ -35,6 +37,9 @@
         >
             <FlatGeoBuf title="Eurocrops 2018" url="https://flatgeobuf.org/test/data/countries.fgb"
             ></FlatGeoBuf>
+            <WidgetGroup position="bottom-right">
+                <ShowXY></ShowXY>
+            </WidgetGroup>
         </OpenlayersMap>
         <div class="h-16 bg-white flex place-items-center justify-center">
             {mapManager?.center?.[0].toFixed(3)}, {mapManager?.center?.[1].toFixed(3)}
