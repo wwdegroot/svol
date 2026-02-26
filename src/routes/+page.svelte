@@ -33,5 +33,11 @@
         >
             WFS Source and Identify Features
         </a>
+        <a
+            class="flex items-center justify-center rounded h-16 w-48 bg-slate-400"
+            href="/sources/fgb/"
+        >
+            FlatGeobuf source
+        </a>
     </div>
 </div>
