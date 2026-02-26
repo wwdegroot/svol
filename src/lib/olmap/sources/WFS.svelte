@@ -50,7 +50,6 @@
         }
         let resp = await fetch(wfsUrl);
         if (!resp.ok) {
-            console.log(await resp.text());
             vectorSource.removeLoadedExtent(extent);
             failure();
         }
