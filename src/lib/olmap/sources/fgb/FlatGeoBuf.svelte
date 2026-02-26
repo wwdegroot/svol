@@ -3,7 +3,7 @@
     import VectorSource, { type LoadingStrategy } from 'ol/source/Vector.js';
     import VectorLayer from 'ol/layer/Vector.js';
     import { bbox as bboxStrategy } from 'ol/loadingstrategy.js';
-    import { Style, Stroke } from 'ol/style.js';
+    import { Style, Stroke, Fill } from 'ol/style.js';
     import { createLoader } from 'flatgeobuf/lib/mjs/ol.js';
     import { get as getProjection } from 'ol/proj.js';
     import type { StyleLike } from 'ol/style/Style.js';
@@ -31,7 +31,8 @@
         title,
         layerId = $bindable(crypto.randomUUID()),
         style = new Style({
-            stroke: new Stroke({ color: 'rgba(255, 0, 0, 1.0)', width: 2 })
+            stroke: new Stroke({ color: 'rgba(255, 0, 0, 1.0)', width: 2 }),
+            fill: new Fill({ color: 'rgba(0, 0, 0, 0)' })
         }),
         visible = true,
         projection = 'EPSG:4326',
