@@ -6,6 +6,7 @@
     import FlatGeoBuf from '$lib/olmap/sources/fgb/FlatGeoBuf.svelte';
     import ShowXY from '$lib/showxy/ShowXY.svelte';
     import WidgetGroup from '$lib/mapui/group/WidgetGroup.svelte';
+    import InfoPopup from '$lib/infopopup/InfoPopup.svelte';
 
     let pageMounted = $state(false);
     let mapOptions: MapOptions = $state({});
@@ -27,7 +28,7 @@
 {#if pageMounted}
     <div class="flex flex-col h-full w-full">
         <div class="h-16 bg-slate-700 flex items-center justify-center shadow-sm border-collapse">
-            <span class="font-semibold text-white">Flatgeobuf Source</span>
+            <span class="font-semibold text-white">Flatgeobuf Source and Info Popup</span>
         </div>
         <OpenlayersMap
             {mapOptions}
@@ -40,6 +41,7 @@
             <WidgetGroup position="bottom-right">
                 <ShowXY></ShowXY>
             </WidgetGroup>
+            <InfoPopup></InfoPopup>
         </OpenlayersMap>
         <div class="h-16 bg-white flex place-items-center justify-center">
             {mapManager?.center?.[0].toFixed(3)}, {mapManager?.center?.[1].toFixed(3)}
