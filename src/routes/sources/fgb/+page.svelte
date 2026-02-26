@@ -28,7 +28,7 @@
 {#if pageMounted}
     <div class="flex flex-col h-full w-full">
         <div class="h-16 bg-slate-700 flex items-center justify-center shadow-sm border-collapse">
-            <span class="font-semibold text-white">Flatgeobuf Source</span>
+            <span class="font-semibold text-white">Flatgeobuf Source and Info Popup</span>
         </div>
         <OpenlayersMap
             {mapOptions}
