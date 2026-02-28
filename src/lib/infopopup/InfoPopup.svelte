@@ -1,6 +1,6 @@
 <script lang="ts">
     import { MapManager, MAPMANAGER_KEY } from '$lib/olmap/index.js';
-    import { getContext, onDestroy, onMount } from 'svelte';
+    import { getContext, onDestroy, onMount, type Snippet } from 'svelte';
     import Overlay from 'ol/Overlay.js';
     import { twMerge } from 'tailwind-merge';
     import type { MapBrowserEvent } from 'ol';
@@ -12,9 +12,13 @@
     interface Props {
         title?: string;
         class?: string;
+        featurePropertiesTable?: Snippet<[FeatureLike[] | undefined]>;
     }
-    let { title = 'Feature Properties', class: ClassValue = 'bg-white p-2 rounded shadow' }: Props =
-        $props();
+    let {
+        title = 'Feature Properties',
+        class: ClassValue = 'bg-white p-2 rounded shadow',
+        featurePropertiesTable
+    }: Props = $props();
 
     let popUpContainer: HTMLDivElement;
     let popUpOverlay: Overlay;
@@ -62,5 +66,9 @@
         <div class="mr-auto font-bold">{title}</div>
         <button onclick={(event) => closePopupInfo(event)}>X</button>
     </div>
-    <FeatureInfoTable features={selectedFeatures}></FeatureInfoTable>
+    {#if featurePropertiesTable}
+        {@render featurePropertiesTable(selectedFeatures)}
+    {:else}
+        <FeatureInfoTable features={selectedFeatures}></FeatureInfoTable>
+    {/if}
 </div>
