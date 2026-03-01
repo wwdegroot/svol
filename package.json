@@ -1,6 +1,6 @@
 {
     "name": "svol",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "license": "MIT",
     "scripts": {
         "dev": "vite dev",
@@ -62,12 +62,13 @@
     "types": "./dist/index.d.ts",
     "type": "module",
     "dependencies": {
+        "@lucide/svelte": "^0.513.0",
+        "bits-ui": "2.4.1",
+        "flatgeobuf": "^4.4.0",
         "ol": "^10.8.0",
         "proj4": "^2.20.2",
         "tailwind-merge": "^3.5.0",
-        "tailwind-variants": "^1.0.0",
-        "bits-ui": "2.4.1",
-        "@lucide/svelte": "^0.513.0"
+        "tailwind-variants": "^1.0.0"
     },
     "pnpm": {
         "onlyBuiltDependencies": [
