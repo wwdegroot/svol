@@ -14,8 +14,8 @@
 
     onMount(() => {
         let view = new View({
-            center: [0, 0],
-            zoom: 4
+            center: [516710.623, 6920014.686],
+            zoom: 8
         });
 
         mapOptions = {
@@ -36,12 +36,38 @@
             wrapperClass="relative flex-1 min-h-0 h-full"
             class="w-full h-full"
         >
-            <FlatGeoBuf title="Eurocrops 2018" url="https://flatgeobuf.org/test/data/countries.fgb"
+            <FlatGeoBuf
+                title="Besmettings Gebieden"
+                url="http://localhost:3005/besmettings-gebieden"
+            ></FlatGeoBuf>
+            <FlatGeoBuf
+                title="Ophokplicht en Tentoonstellingsverbod"
+                url="http://127.0.0.1:3005/ophokplicht-en-tentoonstellingsverbod"
             ></FlatGeoBuf>
             <WidgetGroup position="bottom-right">
                 <ShowXY></ShowXY>
             </WidgetGroup>
-            <InfoPopup></InfoPopup>
+            <InfoPopup
+                title="Informatie"
+                displayFieldConfig={{
+                    'Ophokplicht en Tentoonstellingsverbod': {
+                        OPHOKPLICHT: 'Ophokplicht',
+                        URL_O: 'url',
+                        TENTOONSTELLINGSVERBOD: 'Tentoonstellings verbod'
+                    },
+                    'Besmettings Gebieden': {
+                        BESMETTING: 'Besmetting',
+                        BEPERKING: 'Beperking',
+                        GEBIEDSTYPE: 'Gebied type',
+                        ZONE: 'Zone',
+                        STATUS: 'Status',
+                        REGELING: 'Regeling',
+                        URL: 'Url',
+                        NAAM: 'Naam',
+                        PATHOGEEN: 'Pathogeen'
+                    }
+                }}
+            ></InfoPopup>
         </OpenlayersMap>
         <div class="h-16 bg-white flex place-items-center justify-center">
             {mapManager?.center?.[0].toFixed(3)}, {mapManager?.center?.[1].toFixed(3)}
