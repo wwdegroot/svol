@@ -9,8 +9,8 @@ export default defineConfig({
         include: ['@lucide/svelte']
     },
     test: {
-        include: ['tests/**/*.{test,spec}.{js,ts}'],
+        include: ['**/*.{test,spec}.{js,ts}'],
         environment: 'jsdom',
-        setupFiles: []
+        setupFiles: ['./tests/setup.ts']
     }
 });
