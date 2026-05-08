@@ -12,12 +12,12 @@ import type { ProjectionLike } from 'ol/proj.js';
  * Map Manager class to access and manage the openlayers map instance with svelte $state runes
  */
 export class MapManager {
-    #map: Map = $state() as Map;
-    #view: View | undefined = $state(undefined);
+    #map: Map;
+    #view: View;
     #layers: Array<BaseLayer> | Collection<BaseLayer> | LayerGroup | undefined = $state(undefined);
     #overlays: Collection<Overlay> | Array<Overlay> | undefined = $state(undefined);
-    center: Coordinate | undefined = $state(undefined);
-    extent: Extent | undefined = $state(undefined);
+    center = $state<Coordinate | undefined>(undefined);
+    extent = $state<Extent | undefined>(undefined);
     projection: ProjectionLike = $state() as ProjectionLike;
 
     constructor(options: MapOptions = {}) {
@@ -25,9 +25,8 @@ export class MapManager {
         this.#view = this.#map.getView();
         this.#layers = this.#map.getAllLayers();
         this.#overlays = this.#map.getOverlays();
-        this.center = this.#view?.getCenter();
-        this.extent = this.#view?.calculateExtent();
-        this.projection = this.#view?.getProjection().getCode();
+
+        this.syncState();
 
         // set default layer to to OSM
         if (!options.layers) {
@@ -39,7 +38,7 @@ export class MapManager {
         }
 
         // Sync state with map changes
-        this.#view?.on('change:center', () => {
+        this.#view.on('change:center', () => {
             this.center = this.#view?.getCenter();
             this.extent = this.#view?.calculateExtent();
         });
@@ -49,6 +48,11 @@ export class MapManager {
         });
     }
 
+    private syncState() {
+        this.center = this.#view.getCenter();
+        this.extent = this.#view.calculateExtent();
+        this.projection = this.#view.getProjection().getCode();
+    }
     // Getters for state
     get map() {
         return this.#map;

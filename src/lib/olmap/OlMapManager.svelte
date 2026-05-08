@@ -20,22 +20,30 @@
         children,
         mapManager = $bindable(undefined)
     }: Props = $props();
-    const map = new MapManager(mapOptions);
+    let isLocalMapManager = !mapManager;
+    // We only instantiate the map page once after loading, we dont need it to be reactive.
+    // svelte-ignore state_referenced_locally
+    let internalMapManager = $state<MapManager>(mapManager ?? new MapManager(mapOptions));
 
-    setContext(MAPMANAGER_KEY, map);
+    if (isLocalMapManager) {
+        mapManager = internalMapManager;
+    }
+
+    setContext(MAPMANAGER_KEY, internalMapManager);
 
     let mapDiv: HTMLDivElement | undefined = $state(undefined);
     let mapID = `map-${crypto.randomUUID().split('-')[0]}`;
 
     onMount(() => {
         if (mapDiv) {
-            map.setTarget(mapDiv);
-            mapManager = map;
+            internalMapManager.setTarget(mapDiv);
         }
     });
 
     onDestroy(() => {
-        map.destroy();
+        if (isLocalMapManager) {
+            internalMapManager.destroy();
+        }
     });
 </script>
 
