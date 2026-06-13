@@ -38,11 +38,11 @@
         >
             <FlatGeoBuf
                 title="Besmettings Gebieden"
-                url="http://localhost:3005/besmettings-gebieden"
+                url="http://localhost:5173/fgb/besmettingsgebieden.fgb"
             ></FlatGeoBuf>
             <FlatGeoBuf
                 title="Ophokplicht en Tentoonstellingsverbod"
-                url="http://127.0.0.1:3005/ophokplicht-en-tentoonstellingsverbod"
+                url="http://localhost:5173/fgb/ophokplichtententoonstellingsverbod.fgb"
             ></FlatGeoBuf>
             <WidgetGroup position="bottom-right">
                 <ShowXY></ShowXY>
